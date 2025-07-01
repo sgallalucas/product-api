@@ -5,7 +5,7 @@ import com.sgallalucas.produtosapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,6 +37,11 @@ public class ProductController {
     public void updateProduct(@PathVariable String id, @RequestBody Product product) {
         product.setId(id);
         productRepository.save(product);
+    }
+
+    @GetMapping
+    public List<Product> find(@RequestParam(value = "name", defaultValue = "") String name){
+        return productRepository.findByName(name);
     }
 
 }
